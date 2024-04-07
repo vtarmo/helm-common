@@ -24,3 +24,17 @@
       key: {{$value.configMapKey}}
 {{- end }}
 {{- end }}
+
+{{- define "common.envfromsecret.transformDict" -}}
+{{- range $key, $value := . }}
+- secretRef:
+    name: {{$value | quote}}
+{{- end }}
+{{- end }}
+
+{{- define "common.envfromconfigmap.transformDict" -}}
+{{- range $key, $value := . }}
+- configMapRef:
+    name: {{$value | quote}}
+{{- end }}
+{{- end }}
