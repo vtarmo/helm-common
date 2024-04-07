@@ -11,6 +11,9 @@ env:
   {{- include "common.env.transformDict" $container.envVars | trim | nindent 2 }}
   {{- include "common.secretenv.transformDict" $container.envSecretVars | trim | nindent 2 }}
   {{- include "common.configmapenv.transformDict" $container.envConfigMapVars | trim | nindent 2 }}
+envFrom:
+  {{- include "common.envfromsecret.transformDict" $container.envFromSecret | trim |nindent 2 }}
+  {{- include "common.envfromconfigmap.transformDict" $container.envFromConfigMap | trim |nindent 2 }}
 resources:
   {{- toYaml $container.resources | nindent 2 }}
 ports:
