@@ -8,10 +8,12 @@ metadata:
 spec:
   type: {{ $service.type }}
   ports:
-  - port: {{ $service.port }}
-    targetPort: http
-    protocol: TCP
-    name: http
+  {{- range $key, $index := $service.ports }}  
+  - port: {{ $index.port }}
+    targetPort: {{ $index.targetPort | default $index.port }}
+    protocol: {{ $index.protocol }}
+    name: {{ $key }}
+  {{- end }}
   selector:
     {{- include "common.selectorLabels" $top | nindent 4 }}
 {{- end }}
