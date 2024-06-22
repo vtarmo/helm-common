@@ -2,7 +2,7 @@ apiVersion: v2
 name: helm-common
 description: Common chart
 type: library
-version: 0.5.4
+version: 0.5.5
 maintainers:
   - name: Tarmo Katmuk
     email: vta6722@gmail.com

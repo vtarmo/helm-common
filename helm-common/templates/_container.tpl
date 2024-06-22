@@ -17,9 +17,11 @@ envFrom:
 resources:
   {{- toYaml $container.resources | nindent 2 }}
 ports:
-  - name: http
-    containerPort: {{ $container.service.port }}
-    protocol: TCP
+  {{- range $key, $serviceport := $container.service.ports }}
+  - name: {{ $key }}
+    containerPort: {{ $serviceport.port }}
+    protocol: {{ $serviceport.protocol }}
+  {{- end }}
 {{- with (include "common.volumeMounts" . | trim) }}
 volumeMounts:
   {{- nindent 4 . }}
