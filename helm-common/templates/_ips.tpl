@@ -8,6 +8,8 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: {{$key}}
+  labels:
+    {{- include "common.labels" $top | nindent 4 }}
 type: kubernetes.io/dockerconfigjson
 data:
   .dockerconfigjson: {{ template "common.ips.secret" (list . $value) }}

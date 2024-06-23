@@ -1,12 +1,17 @@
 {{- define "common.configMap.tpl" -}}
 {{- $top := first . }}
 {{- $configmap := index . 1 }}
+{{- range $cName, $val := $configmap }}
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  {{- include "common.metadata" (list $top) | nindent 2 }}
+  name: {{ include "common.fullname" $top }}-{{$cName}}
+  labels:
+    {{- include "common.labels" $top | nindent 4 }}
 data: 
-  {{- toYaml $configmap.data | nindent 2 }}
+  {{- toYaml $val.data | nindent 2 }}
+{{- end }}
 {{- end }}
 
 {{- define "common.configMap" -}}
